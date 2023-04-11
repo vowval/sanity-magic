@@ -16,9 +16,9 @@ export default function Login() {
 
 
     // the Magic code
-    // const did = await new Magic(
-    //   process.env.NEXT_PUBLIC_MAGIC_PUB_KEY
-    // ).auth.loginWithMagicLink({ email: elements.email.value });
+    const did = await new Magic(
+      process.env.NEXT_PUBLIC_MAGIC_PUB_KEY
+    ).auth.loginWithMagicLink({ email: elements.email.value });
     
     // const authRequest = await fetch(`https://${location}/api/login`, {
     //   method: "POST",
@@ -28,11 +28,10 @@ export default function Login() {
 
     const handleLogin = async (e) => {
       e.preventDefault();
-      const email = {email: elements.email.value};
       const redirectURI = `${window.location.origin}/todos`;
-      if (email) {
+      if (did) {
         /* One-liner login 🤯 */
-        const authRequest = await magic.auth.loginWithMagicLink({ email, redirectURI });
+        const authRequest = await did.auth.loginWithMagicLink({ redirectURI });
         render();
       }
     };
