@@ -14,7 +14,7 @@
     "@sanity/client": "^2.8.0",
     "dayjs": "^1.10.4",
     "https-localhost": "^4.7.1",
-    "magic-sdk": "^4.2.1",
+    "magic-sdk": "^4.4.2",
     "next": "10.2.0",
     "react": "17.0.2",
     "react-date-picker": "^8.1.1",
