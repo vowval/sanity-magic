@@ -30,7 +30,7 @@ export default function Login() {
     //   headers: { Authorization: `Bearer ${did}` },
     });
     console.log('Auth:', authRequest);
-    if (authRequest.ok) {
+    if (response.ok) {
       // We successfully logged in, our API
       // set authorization cookies and now we
       // can redirect to the dashboard!
