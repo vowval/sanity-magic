@@ -8,17 +8,16 @@ export default function Login() {
     event.preventDefault();
 
     const { elements } = event.target;
-
+    //the magic link Auth code
+    const location = window.location.hostname;
     // the Magic code
     const did = await new Magic(
       process.env.NEXT_PUBLIC_MAGIC_PUB_KEY
     ).auth.loginWithMagicLink({ email: elements.email.value });
-    console.log('DID:', did);
-    const authRequest = await fetch("/api/login", {
+    const authRequest = await fetch(`https://${location}/api/login`, {
       method: "POST",
       headers: { Authorization: `Bearer ${did}` },
     });
-    console.log('Auth:', authRequest);
     if (authRequest.ok) {
       // We successfully logged in, our API
       // set authorization cookies and now we
