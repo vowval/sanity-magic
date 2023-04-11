@@ -10,22 +10,47 @@ export default function Login() {
     const { elements } = event.target;
     //the magic link Auth code
     const location = window.location.hostname;
+    
+    
+    let magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_PUB_KEY);
+
+
     // the Magic code
-    const did = await new Magic(
-      process.env.NEXT_PUBLIC_MAGIC_PUB_KEY
-    ).auth.loginWithMagicLink({ email: elements.email.value });
-    const authRequest = await fetch(`https://${location}/api/login`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${did}` },
-    });
-    if (authRequest.ok) {
-      // We successfully logged in, our API
-      // set authorization cookies and now we
-      // can redirect to the dashboard!
-      router.push("/todos");
-    } else {
-      /* handle errors */
-    }
+    // const did = await new Magic(
+    //   process.env.NEXT_PUBLIC_MAGIC_PUB_KEY
+    // ).auth.loginWithMagicLink({ email: elements.email.value });
+    
+    // const authRequest = await fetch(`https://${location}/api/login`, {
+    //   method: "POST",
+    //   headers: { Authorization: `Bearer ${did}` },
+    // });
+
+
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      const email = {email: elements.email.value};
+      const redirectURI = `${window.location.origin}/todos`;
+      if (email) {
+        /* One-liner login 🤯 */
+        const authRequest = await magic.auth.loginWithMagicLink({ email, redirectURI });
+        render();
+      }
+    };
+
+
+
+
+
+
+    
+    // if (authRequest.ok) {
+    //   // We successfully logged in, our API
+    //   // set authorization cookies and now we
+    //   // can redirect to the dashboard!
+    //   router.push("/todos");
+    // } else {
+    //   /* handle errors */
+    // }
   };
 
   return (
