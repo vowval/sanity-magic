@@ -1,6 +1,8 @@
 // pages/login.js
 import { useRouter } from "next/router";
 import { Magic } from "magic-sdk";
+import { toast } from 'react-toastify';
+
 
 export default function Login() {
   const router = useRouter();
@@ -14,6 +16,7 @@ export default function Login() {
     const did = await new Magic(
       process.env.NEXT_PUBLIC_MAGIC_PUB_KEY
     ).auth.loginWithMagicLink({ email: elements.email.value });
+
     const authRequest = await fetch("/api/login", {
       method: "POST",
       headers: { Authorization: `Bearer ${did}` },
@@ -23,8 +26,10 @@ export default function Login() {
       // We successfully logged in, our API
       // set authorization cookies and now we
       // can redirect to the dashboard!
+      toast.success('Logged in successfully');
       router.push("/todos");
     } else {
+      toast.error('Failed to log in');
       /* handle errors */
     }
   };
