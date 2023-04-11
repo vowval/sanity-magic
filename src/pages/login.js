@@ -35,21 +35,15 @@ export default function Login() {
         render();
       }
     };
-
-
-
-
-
-
     
-    // if (authRequest.ok) {
-    //   // We successfully logged in, our API
-    //   // set authorization cookies and now we
-    //   // can redirect to the dashboard!
-    //   router.push("/todos");
-    // } else {
-    //   /* handle errors */
-    // }
+    if (authRequest.ok) {
+      // We successfully logged in, our API
+      // set authorization cookies and now we
+      // can redirect to the dashboard!
+      router.push("/todos");
+    } else {
+      /* handle errors */
+    }
   };
 
   return (
