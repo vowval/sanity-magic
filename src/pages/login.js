@@ -13,12 +13,12 @@ export default function Login() {
     const did = await new Magic(
       process.env.NEXT_PUBLIC_MAGIC_PUB_KEY
     ).auth.loginWithMagicLink({ email: elements.email.value });
-
+    console.log('DID:', did);
     const authRequest = await fetch("/api/login", {
       method: "POST",
       headers: { Authorization: `Bearer ${did}` },
     });
-
+    console.log('Auth:', authRequest);
     if (authRequest.ok) {
       // We successfully logged in, our API
       // set authorization cookies and now we
