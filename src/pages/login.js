@@ -11,15 +11,23 @@ export default function Login() {
 
     const { elements } = event.target;
     //the magic link Auth code
-    
+    console.log('API:',process.env.NEXT_PUBLIC_MAGIC_PUB_KEY);
     // the Magic code
+
     const did = await new Magic(
       process.env.NEXT_PUBLIC_MAGIC_PUB_KEY
     ).auth.loginWithMagicLink({ email: elements.email.value });
 
-    const authRequest = await fetch("/api/login", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${did}` },
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${did}`,
+      },
+
+    // const authRequest = await fetch("/api/login", {
+    //   method: "POST",
+    //   headers: { Authorization: `Bearer ${did}` },
     });
     console.log('Auth:', authRequest);
     if (authRequest.ok) {
